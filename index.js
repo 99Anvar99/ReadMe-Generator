@@ -1,55 +1,105 @@
-const inquirer = require('inquirer'); // includes inquirer
-const fs = require('fs'); // includes fs
-const generateMarkdown = require('./generate'); // includes generate
+const fs = require('fs');
+const inquirer = require('inquirer');
 
-async function getUserInput() { // get user input function
-    try {
-        const answers = await inquirer.prompt([ // prompts
-            {
-                name: 'license',
-                message: 'Choose a license for this application:',
-                type: 'list',
-                choices: [
-                    "Academic Free License v3.0",
-                    "Apache License 2.0",
-                    "Artistic License 2.0",
-                ],
-            },
-            {
-                name: 'title',
-                message: 'Enter the title of this application:',
-                type: 'input',
-            },
-            {
-                name: 'description',
-                message: 'Describe what this application does:',
-                type: 'input',
-            },
-        ]);
-
-        return answers;
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
+// Function to prompt user for input
+async function promptUser() {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'projectTitle',
+      message: 'Enter your project title:',
+    },
+    {
+      type: 'input',
+      name: 'description',
+      message: 'Enter a description:',
+    },
+    {
+      type: 'input',
+      name: 'installation',
+      message: 'Enter installation instructions:',
+    },
+    {
+      type: 'input',
+      name: 'usage',
+      message: 'Enter usage information:',
+    },
+    {
+      type: 'list',
+      name: 'license',
+      message: 'Choose a license:',
+      choices: ['MIT', 'Apache', 'GNU', 'None'],
+    },
+    {
+      type: 'input',
+      name: 'githubUsername',
+      message: 'Enter your GitHub username:',
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'Enter your email address:',
+    },
+  ]);
 }
 
-function writeToMarkdownFile(fileName, data) { // write to a file function
-    fs.appendFile(`${fileName}.md`, data, (err) => {
-        if (err) {
-            console.error('Error writing to file:', err);
-        } else {
-            console.log(`${fileName}.md has been generated.`);
-        }
-    });
+// Function to generate the README content
+function generateReadme(answers) {
+  return `
+# ${answers.projectTitle}
+
+## Description
+
+${answers.description}
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation
+
+${answers.installation}
+
+## Usage
+
+${answers.usage}
+
+## License
+
+This project is licensed under the ${answers.license} License.
+
+## Contributing
+
+Contributions are welcome! Please refer to the [Contributing Guidelines](CONTRIBUTING.md).
+
+## Tests
+
+${answers.tests}
+
+## Questions
+
+For additional questions, contact me at ${answers.email}.
+
+GitHub: [${answers.githubUsername}](https://github.com/${answers.githubUsername})
+`;
 }
 
-async function initializeApp() { // async function
-    try {
-        const answers = await getUserInput();
-        writeToMarkdownFile(answers.fileName, generateMarkdown(answers));
-    } catch (error) {
-        console.error('An error occurred during initialization:', error);
-    }
+// Main function
+async function main() {
+  try {
+    const userAnswers = await promptUser();
+    const readmeContent = generateReadme(userAnswers);
+
+    fs.writeFileSync('README.md', readmeContent, 'utf-8');
+    console.log('README.md file generated successfully!');
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 }
 
-initializeApp();
+main();
