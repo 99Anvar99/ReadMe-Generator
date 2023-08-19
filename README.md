@@ -33,7 +33,7 @@ Lastly, upon completion, the process will yield an "readme.md" file within the p
 
 ## License
 
-This project is licensed under the MIT License.
+- This project is licensed under the MIT License.
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Contributing
