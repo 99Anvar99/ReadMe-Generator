@@ -14,11 +14,22 @@ The README generator is a command-line tool for creating professional README fil
 
 ## Installation
 
-Make sure to install the inquirer package before running the script: npm install inquirer
+Make sure to install the inquirer package before running the script: 
+- npm install inquirer
 
 ## Usage
 
-1) Clone Respetory and open it on your local pc 2)onces its open make sure to install the INQUIRER in order for the read me generator to work 3)Run in the command line prompt : node index.js 4) it will give you questions to input regarding the readme gernerator , and how its gonna generate it . 5) and lastly onces its done it will output readme.md file in  the project directory
+```
+Begin by cloning the repository and subsequently accessing it on your local personal computer.
+
+Upon successful access, ensure the installation of the INQUIRER package. This step is crucial for the proper functioning of the README generator.
+
+Proceed to execute the command "node index.js" within the command line prompt.
+
+Subsequently, a series of inquiries will be presented, soliciting input relevant to the README generation process and its specific parameters.
+
+Lastly, upon completion, the process will yield an "readme.md" file within the project directory, finalizing the generation procedure.
+```
 
 ## License
 
@@ -30,7 +41,7 @@ Contributions are welcome! Please refer to the [Contributing Guidelines](CONTRIB
 
 ## Tests
 
-undefined
+Just utilize the app.
 
 ## Questions
 
